@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  postgre:
+    image: postgres:13.13
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=kubenews
+      - POSTGRES_PASSWORD=Pg#123
+      - POSTGRES_DB=kubenews
+    
+  kubenews:
+    #image: phcbarros/kube-news:v6
+    build:
+      context: ./src
+      dockerfile: ./Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      - DB_DATABASE=kubenews
+      - DB_USERNAME=kubenews
+      - DB_PASSWORD=Pg#123
+      - DB_HOST=postgre
+    depends_on:
+      - postgre
+  
+networks:
+  kubenews-network:
+    driver: bridge
