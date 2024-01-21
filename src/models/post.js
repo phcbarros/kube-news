@@ -42,7 +42,7 @@ Post.init({
 })
 
 exports.initDatabase = () => {
-    seque.sync({ alter: true })
+  seque.sync({ alter: true })
 }
 
 exports.Post = Post;
